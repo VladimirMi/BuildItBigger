@@ -45,6 +45,7 @@ class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
         try {
             return myApiService.getJoke().execute().getJoke();
         } catch (IOException e) {
+            e.printStackTrace();
             return e.getMessage();
         }
     }

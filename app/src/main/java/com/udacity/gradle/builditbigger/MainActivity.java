@@ -1,26 +1,21 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.MobileAds;
-
-import io.github.vladimirmi.joketeller.JokeTeller;
+import io.github.vladimirmi.joker.JokeActivity;
 
 
 public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.Callback {
-
-    private JokeTeller jokeTeller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        jokeTeller = new JokeTeller();
     }
 
 
@@ -54,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
 
     @Override
     public void onSuccess(String result) {
-        //todo show joke
+        Intent intent = new Intent(this, JokeActivity.class);
+        intent.putExtra(JokeActivity.EXTRA_JOKE, result);
+        startActivity(intent);
     }
 }
