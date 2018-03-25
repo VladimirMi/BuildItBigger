@@ -12,7 +12,7 @@ import com.google.android.gms.ads.MobileAds;
 import io.github.vladimirmi.joketeller.JokeTeller;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.Callback {
 
     private JokeTeller jokeTeller;
 
@@ -47,8 +47,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, jokeTeller.getJoke(), Toast.LENGTH_LONG).show();
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask();
+        asyncTask.setCallback(this);
+        asyncTask.execute();
     }
 
-
+    @Override
+    public void onSuccess(String result) {
+        //todo show joke
+    }
 }
