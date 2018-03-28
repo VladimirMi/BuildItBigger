@@ -20,3 +20,9 @@ allprojects {
         google()
     }
 }
+
+task gceTest {
+    dependsOn ":backend:appengineStart"
+    dependsOn ":app:connectedAndroidTest"
+    finalizedBy ":backend:appengineStop"
+}
