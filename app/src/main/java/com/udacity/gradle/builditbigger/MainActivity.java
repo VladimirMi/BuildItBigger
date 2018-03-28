@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import io.github.vladimirmi.joker.JokeActivity;
 
@@ -13,11 +14,20 @@ import io.github.vladimirmi.joker.JokeActivity;
 public class MainActivity extends AppCompatActivity {
 
     private EndpointsAsyncTask asyncTask;
+    protected Button tellJokeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tellJokeBtn = findViewById(R.id.tell_joke);
+        tellJokeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tellJoke();
+            }
+        });
     }
 
 
@@ -49,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         if (asyncTask != null) asyncTask.setCallback(null);
     }
 
-    public void tellJoke(View view) {
+    public void tellJoke() {
         asyncTask = new EndpointsAsyncTask();
         asyncTask.setCallback(new EndpointsAsyncTask.Callback() {
             @Override
