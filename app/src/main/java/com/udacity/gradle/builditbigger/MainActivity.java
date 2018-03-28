@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import io.github.vladimirmi.joker.JokeActivity;
 
@@ -14,12 +15,15 @@ import io.github.vladimirmi.joker.JokeActivity;
 public class MainActivity extends AppCompatActivity {
 
     private EndpointsAsyncTask asyncTask;
+    private ProgressBar loadIndicator;
     protected Button tellJokeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        loadIndicator = findViewById(R.id.loadingPb);
 
         tellJokeBtn = findViewById(R.id.tell_joke);
         tellJokeBtn.setOnClickListener(new View.OnClickListener() {
@@ -59,11 +63,13 @@ public class MainActivity extends AppCompatActivity {
         if (asyncTask != null) asyncTask.setCallback(null);
     }
 
-    public void tellJoke() {
+    protected void tellJoke() {
+        loadIndicator.setVisibility(View.VISIBLE);
         asyncTask = new EndpointsAsyncTask();
         asyncTask.setCallback(new EndpointsAsyncTask.Callback() {
             @Override
             public void onJokeLoad(String joke) {
+                loadIndicator.setVisibility(View.GONE);
                 Intent intent = new Intent(MainActivity.this, JokeActivity.class);
                 intent.putExtra(JokeActivity.EXTRA_JOKE, joke);
                 startActivity(intent);
