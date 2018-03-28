@@ -10,7 +10,9 @@ import android.view.View;
 import io.github.vladimirmi.joker.JokeActivity;
 
 
-public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.Callback {
+public class MainActivity extends AppCompatActivity {
+
+    private EndpointsAsyncTask asyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +43,22 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
         return super.onOptionsItemSelected(item);
     }
 
-    public void tellJoke(View view) {
-        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask();
-        asyncTask.setCallback(this);
-        asyncTask.execute();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (asyncTask != null) asyncTask.setCallback(null);
     }
 
-    @Override
-    public void onSuccess(String result) {
-        Intent intent = new Intent(this, JokeActivity.class);
-        intent.putExtra(JokeActivity.EXTRA_JOKE, result);
-        startActivity(intent);
+    public void tellJoke(View view) {
+        asyncTask = new EndpointsAsyncTask();
+        asyncTask.setCallback(new EndpointsAsyncTask.Callback() {
+            @Override
+            public void onJokeLoad(String joke) {
+                Intent intent = new Intent(MainActivity.this, JokeActivity.class);
+                intent.putExtra(JokeActivity.EXTRA_JOKE, joke);
+                startActivity(intent);
+            }
+        });
+        asyncTask.execute();
     }
 }
