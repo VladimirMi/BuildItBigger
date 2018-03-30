@@ -18,7 +18,7 @@ public class JokeActivity extends AppCompatActivity {
         if (getIntent().hasExtra(EXTRA_JOKE)) {
             joke = getIntent().getStringExtra(EXTRA_JOKE);
         } else {
-            joke = "You should pass joke via intent extra";
+            joke = getString(R.string.joke_placeholder);
         }
 
         TextView jokeView = findViewById(R.id.joke);

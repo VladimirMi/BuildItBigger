@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Joker</string>
+    <string name="joke_placeholder">You should pass joke via intent extra</string>
 </resources>

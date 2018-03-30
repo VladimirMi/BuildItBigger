@@ -6,23 +6,16 @@ import com.google.api.server.spi.config.ApiNamespace;
 
 import io.github.vladimirmi.joketeller.JokeTeller;
 
-/**
- * An endpoint class we are exposing
- */
 @Api(
         name = "myApi",
         version = "v1",
         namespace = @ApiNamespace(
                 ownerDomain = "backend.builditbigger.gradle.udacity.com",
-                ownerName = "backend.builditbigger.gradle.udacity.com",
-                packagePath = ""
+                ownerName = "backend.builditbigger.gradle.udacity.com"
         )
 )
 public class MyEndpoint {
 
-    /**
-     * A simple endpoint method that takes a name and says Hi back
-     */
     @ApiMethod(name = "getJoke")
     public JokeBean getJoke() {
         JokeBean response = new JokeBean();
@@ -30,5 +23,4 @@ public class MyEndpoint {
 
         return response;
     }
-
 }
